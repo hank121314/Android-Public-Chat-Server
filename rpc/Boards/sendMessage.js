@@ -16,6 +16,7 @@ export default function sendMessage(io, socket, db) {
             const value = {
               room: data.parm.room,
               send: data.parm.send.replace(exp, ''),
+              user: data.parm.user.replace(exp, ''),
               timestamp: data.parm.timestamp,
               sent: true,
               message: data.parm.message,
