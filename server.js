@@ -29,6 +29,8 @@ io.on('connection', socket => {
   mongo.connect('mongodb://localhost:27017/PublicChat', (err, db) => {
     console.log('connect!');
     socket.on('connector', () => io.emit('userConnection'));
+    joinRoom(io, socket, db);
+    leaveRoom(io, socket, db);
     rpc.register(socket, db);
     rpc.login(socket, db);
     rpc.getBoards(socket, db);
@@ -37,7 +39,5 @@ io.on('connection', socket => {
     rpc.sendMessage(io, socket, db);
     rpc.getUserInfo(socket, db);
     rpc.getUserInBoard(socket, db);
-    joinRoom(socket);
-    leaveRoom(socket);
   });
 });

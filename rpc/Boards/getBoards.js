@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const uuidV4 = require('uuid/v4');
 
 export default function getBoards(socket, db) {
-  socket.on('getBoards', data => {
+  socket.on('getBoards', () => {
     const boardDb = db.collection('Boards');
     boardDb.find().toArray((err, result) => {
       socket.emit(
@@ -12,7 +12,7 @@ export default function getBoards(socket, db) {
         new Promise(resolve => {
           const boards = result;
           boards.map(x => delete x.messageData);
-          resolve(success(result));
+          resolve(success(boards));
         })
       );
     });
