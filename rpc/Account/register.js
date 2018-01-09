@@ -10,8 +10,10 @@ export default function register(socket, db) {
         'registerResponse',
         new Promise((resolve, reject) => {
           if (result.length === 0) {
-            usrDb.insert(data.parm);
-            resolve(success(data.parm));
+            const value = data.parm;
+            value.Administrator = false;
+            usrDb.insert(value);
+            resolve(success(value));
           } else {
             return reject(error('Username duplicate', '001', 'This username is exist'));
           }
